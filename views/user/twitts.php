@@ -4,7 +4,6 @@
         <p class="alert alert-warning"><?php echo $this->message; ?></p>
     <?php endif; ?>
 
-    <?php $this->render('forms/twitt'); ?>
 
     <?php if ($this->arrTwitts): ?>
 
@@ -34,7 +33,7 @@
     <?php else: ?>
 
         <div class="row">
-            <p class="alert alert-danger">Sorry :( There is no Twitts! Be first and write something!</p>
+            <p class="alert alert-danger">Sorry :( You didn't write twitt yet!</p>
         </div>
 
     <?php endif; ?>

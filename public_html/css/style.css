@@ -1,4 +1,3 @@
-/* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
@@ -33,4 +32,8 @@ footer {
     .row.content {
         height: auto;
     }
+}
+
+.top-buffer {
+    margin-top: 20px;
 }

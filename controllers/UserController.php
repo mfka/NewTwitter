@@ -2,6 +2,15 @@
 
 class UserController extends Controller
 {
+
+    public function isLogged($user)
+    {
+
+        if (!$user) {
+            $this->redirect('index', 'index');
+        }
+    }
+
     public function registerAction()
     {
         if ($this->isPost()) {
@@ -49,11 +58,25 @@ class UserController extends Controller
     public function indexAction()
     {
         $user = $this->session->get('user');
-        if (!$user) {
-            $this->redirect('index', 'index');
-        }
+
+        $this->isLogged($user);
+
         $this->view->user = $user;
         $this->view->render('user/index');
+    }
+
+    public function twittsAction()
+    {
+        $user = $this->session->get('user');
+
+        $this->isLogged($user);
+
+        $twitts = Twitt::getByUserId($user->id);
+
+        $this->view->arrTwitts = $twitts;
+
+        $this->view->render('user/twitts');
+
     }
 
     public function logoutAction()

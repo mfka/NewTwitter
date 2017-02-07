@@ -19,7 +19,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/user">My Profile</a></li>
                         <li><a href="#">Edit Account</a></li>
-                        <li><a href="#">My Comments</a></li>
+                        <li><a href="/user/twitts">My Twitts</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Action</li>
                         <li><a href="/user/logout">Log Out</a></li>

@@ -8,11 +8,22 @@ class Twitt extends Model
     static public function getAll()
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare('SELECT * FROM twitt');
+        $stmt = $conn->prepare('SELECT t.*, u.* FROM twitt t INNER JOIN user u ON t.user_id = u.id ORDER BY t.publish DESC');
         $stmt->execute();
         $conn = null;
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    static public function getByUserId($id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare('SELECT t.*, u.* FROM twitt t INNER JOIN user u ON t.user_id = u.id WHERE t.user_id = :id ORDER BY t.publish DESC');
+        $stmt->bindParam(':id', $id, 1);
+        $stmt->execute();
+        $conn = null;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     static public function getByID($id)
     {
@@ -23,6 +34,7 @@ class Twitt extends Model
         $conn = null;
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
 
     static public function create($user_id, $text)
     {
@@ -36,7 +48,7 @@ class Twitt extends Model
         return self::getByID($id);
     }
 
-    static public function update($id, $text=null)
+    static public function update($id, $text = null)
     {
         $conn = Database::connect();
         try {
