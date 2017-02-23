@@ -5,6 +5,11 @@ require_once(__DIR__ . '/../config/autoLoader.php');
 class User extends Model
 {
 
+    static public function encryptPassword($pass)
+    {
+        return md5(trim($pass));
+    }
+
     static public function getAll()
     {
         $conn = Database::connect();
@@ -43,7 +48,7 @@ class User extends Model
         $conn = Database::connect();
         $stmt = $conn->prepare('SELECT * FROM user WHERE email = :email AND password = :password LIMIT 1');
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':password', self::encryptPassword($password));
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_OBJ);
         if ($user) {
@@ -99,10 +104,31 @@ class User extends Model
     {
         try {
             $conn = Database::connect();
-            $stmt = $conn->prepare('DETELE FROM user WHERE id = :id LIMIT 1');
+            $stmt = $conn->prepare('DELETE FROM user WHERE id = :id LIMIT 1');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    static public function checkPass($id, $pass)
+    {
+        try {
+            $conn = Database::connect();
+            $stmt = $conn->prepare('SELECT * FROM user WHERE id = :id AND password = :password LIMIT 1');
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':pass', self::encryptPassword($pass));
+            $stmt->execute();
+            $conn = null;
+            var_dump($stmt);
+            if ($stmt->fetch(PDO::FETCH_OBJ)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;

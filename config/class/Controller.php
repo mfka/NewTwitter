@@ -9,6 +9,8 @@ class Controller
     {
         $this->view = new View();
         $this->session = new Session();
+        $this->user = $_SESSION['user'];
+
     }
 
 

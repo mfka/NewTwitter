@@ -3,12 +3,20 @@
 class UserController extends Controller
 {
 
-    public function isLogged($user)
+    public function isLogged()
     {
 
-        if (!$user) {
+        if (!$this->user) {
             $this->redirect('index', 'index');
         }
+    }
+
+    public function indexAction()
+    {
+        $this->isLogged();
+
+        $this->view->user = $this->user;
+        $this->view->render('user/index');
     }
 
     public function registerAction()
@@ -38,9 +46,9 @@ class UserController extends Controller
 
         if ($this->isPost()) {
 
-            if (isset($_POST['email']) && isset($_POST['pass'])) {
-                $email = trim($_POST['email']);
-                $pass = md5(trim($_POST['pass']));
+            if ($this->getValue('pass') && $this->getValue('email')) {
+                $email = trim($this->getValue('email'));
+                $pass = trim($this->getValue('pass'));
             }
             $user = User::login($email, $pass);
 
@@ -55,23 +63,11 @@ class UserController extends Controller
         }
     }
 
-    public function indexAction()
-    {
-        $user = $this->session->get('user');
-
-        $this->isLogged($user);
-
-        $this->view->user = $user;
-        $this->view->render('user/index');
-    }
-
     public function twittsAction()
     {
-        $user = $this->session->get('user');
+        $this->isLogged();
 
-        $this->isLogged($user);
-
-        $twitts = Twitt::getByUserId($user->id);
+        $twitts = Twitt::getByUserId($this->user->id);
 
         $this->view->arrTwitts = $twitts;
 
@@ -85,5 +81,26 @@ class UserController extends Controller
         $this->session->delete('user');
         $this->view->message = "Logout successfully";
         $this->redirect('index', 'index');
+    }
+
+    public function editAccountAction()
+    {
+
+    }
+
+    public function deleteAccountAction()
+    {
+
+        if ($this->isPost()) {
+
+
+            $pass = $this->getValue('pass');
+            if ($pass) {
+                $checkedPass = User::checkPass($this->user->id, $pass);
+                var_dump($checkedPass);
+                exit;
+            }
+        }
+        $this->redirect('user', 'index');
     }
 }

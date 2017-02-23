@@ -1,8 +1,9 @@
-<div class="container">
-    <footer class="container-fluid text-center">
+<footer class="footer">
+    <div class="container text-center">
         <p> all right reserved by MfkA </p>
-    </footer>
-</div>
+    </div>
+</footer>
+
 
 </body>
 </html>
