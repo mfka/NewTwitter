@@ -1,2 +1,4 @@
+/config/dbConnInfo.txt
+/config/tmp
 /.idea/
-/config/config.php
+
