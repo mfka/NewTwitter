@@ -3,17 +3,30 @@
 class Database
 {
 
-    static public $conn = '';
-    static private $db_port = 3306;
-    static private $db_name = 'newTwitter';
-    static private $db_host = 'localhost';
-    static private $db_user = 'root';
-    static private $db_pass = 'coderslab';
+    static public $conn;
+    static private $dbPort;
+    static private $dbName;
+    static private $dbHost;
+    static private $dbUser;
+    static private $dbPass;
+
+    public function __construct()
+    {
+        $data = file_get_contents(__DIR__ . '/../dbConnInfo.txt');
+        preg_match_all('/^([^=]*)=\'([^\']*)\'$/m', $data, $matches);
+        $data = array_combine($matches[1], $matches[2]);
+        foreach ($data as $key => $value) {
+            $key = 'db' . $key;
+            self::${$key} = $value;
+
+        }
+    }
 
     public static function connect()
     {
+        new Database();
         try {
-            $conn = new PDO ('mysql:dbname=' . self::$db_name . ';dbhost=' . self::$db_host . ';port=' . self::$db_port, self::$db_user, self::$db_pass);
+            $conn = new PDO ('mysql:dbname=' . self::$dbName . ';dbhost=' . self::$dbHost . ';port=' . self::$dbPort, self::$dbUser, self::$dbPass);
             return self::$conn = $conn;
         } catch (PDOException $e) {
             error_log($e->getMessage());
@@ -24,7 +37,6 @@ class Database
     public static function close()
     {
         self::$conn = null;
-
     }
 
 }

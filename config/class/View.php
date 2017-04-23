@@ -54,7 +54,6 @@ class View
             case 'helper':
                 $file = __DIR__ . '/../../views/helper/' . $args;
                 if (file_exists($file)) {
-                    echo 'TAK!';
                     require_once $file;
                 } else {
                     return false;

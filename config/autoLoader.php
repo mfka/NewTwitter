@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfka
- * Date: 12.12.16
- * Time: 08:40
- */
-
 function autoLoader($className)
 {
     $dirs = array(

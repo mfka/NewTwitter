@@ -4,6 +4,7 @@ class Bootstrap
 {
     function __construct()
     {
+
         $url = explode('?', $_SERVER['REQUEST_URI']);
         $url = explode('/', rtrim($url[0], '/'));
         if (isset($url[1])) {

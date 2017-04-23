@@ -45,21 +45,21 @@ class UserController extends Controller
     {
 
         if ($this->isPost()) {
-
             if ($this->getValue('pass') && $this->getValue('email')) {
                 $email = trim($this->getValue('email'));
                 $pass = trim($this->getValue('pass'));
             }
+
             $user = User::login($email, $pass);
 
             if ($user) {
                 $this->session->set('logged', 1);
                 $this->session->set('user', $user);
                 $this->redirect('twitt', 'index');
-            } else {
-                $this->view->message = "Your password or/and Email is invalid - try again";
-                $this->view->render('index/index');
             }
+            $this->view->message = "Your password or/and Email is invalid - try again";
+            $this->view->render('index/index');
+
         }
     }
 

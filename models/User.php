@@ -4,7 +4,6 @@ require_once(__DIR__ . '/../config/autoLoader.php');
 
 class User extends Model
 {
-
     static public function encryptPassword($pass)
     {
         return md5(trim($pass));
