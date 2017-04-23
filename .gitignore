@@ -1,4 +1,3 @@
-/config/dbConnInfo.txt
-/config/tmp
 /.idea/
-
+/config/tmp/
+/config/dbConnInfo.txt
