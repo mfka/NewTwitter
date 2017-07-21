@@ -1,7 +1,10 @@
 <?php
 
+namespace Src\Controllers;
 
-class IndexController extends Controller
+use Src\Abstracts\AbstractController;
+
+class Index extends AbstractController
 {
 
     public function __construct()
@@ -11,9 +14,8 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        $this->view->render('index/index');
+        echo 'indexController';
     }
-
 
 }
 

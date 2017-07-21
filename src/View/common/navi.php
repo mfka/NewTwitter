@@ -17,7 +17,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">User <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user">My Profile</a></li>
+                        <li><a href="../../../index.php">My Profile</a></li>
                         <li><a href="#">Edit Account</a></li>
                         <li><a href="/user/twitts">My Twitts</a></li>
                         <li role="separator" class="divider"></li>
@@ -29,7 +29,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Twitts <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/twitt">Show all</a></li>
+                        <li><a href="../../../index.php">Show all</a></li>
                         <li><a href="/twitt/add">Add new</a></li>
                         <li><a href="/twitt/delete">Delete Twitt</a></li>
                         <li role="separator" class="divider"></li>

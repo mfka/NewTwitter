@@ -1,3 +1,5 @@
 <?php
-require_once __DIR__ .'/config/config.php';
-$app = new Bootstrap();
+$loader = require __DIR__ . '/vendor/autoload.php';
+
+new App\Error();
+$boostrap = new App\Bootstrap();

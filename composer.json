@@ -1,0 +1,17 @@
+{
+  "name": "mfka/new-twitter",
+  "authors": [
+    {
+      "name": "Marek Firlejczyk",
+      "email": "marekfirlejczyk@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Src\\": "src/",
+      "App\\": "app/",
+      "Test\\": "test/"
+    }
+  }
+}
