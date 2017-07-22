@@ -45,8 +45,10 @@ class Bootstrap
         $this->controller = new $controller();
 
         $this->request->setControllerParams($this->controller);
+        call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
 
         call_user_func_array([$this->controller, $action], []);
+
     }
 
     private function setRouting()
@@ -67,8 +69,7 @@ class Bootstrap
 
     private function setRoute()
     {
-        return $this->route = $this->routing->getRoute($this->url);
-
+        return $this->route = $this->routing->getRouteByUrl($this->url);
     }
 }
 

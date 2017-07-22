@@ -7,13 +7,9 @@ use Src\Abstracts\AbstractController;
 class Index extends AbstractController
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function indexAction()
     {
+//        $this->redirect('no-page');
         echo 'indexController';
     }
 

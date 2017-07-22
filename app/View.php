@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: mfka
- * Date: 12.12.16
- * Time: 08:35
- */
+namespace App;
+
 class View
 {
     public $data = array();
@@ -16,7 +12,7 @@ class View
         require_once __DIR__ . '/../../views/common/navi.php';
     }
 
-    public function render( $viewName = 'index/index')
+    public function render($viewName = 'index/index')
     {
         $file = __DIR__ . '/../../views/' . $viewName . '.php';
 

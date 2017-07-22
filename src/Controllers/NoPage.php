@@ -15,6 +15,5 @@ class NoPage extends AbstractController
     public function indexAction()
     {
         echo 'NoPage';
-        var_dump($this->get);
     }
 }

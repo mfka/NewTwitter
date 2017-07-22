@@ -2,6 +2,8 @@
 
 namespace Src\Abstracts;
 
+use App\Routing;
+use App\View;
 use Src\Interfaces\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
@@ -13,15 +15,11 @@ abstract class AbstractController implements ControllerInterface
     /** @var $post array */
     protected $post;
 
-//    public $values = array();
-//
-    public function __construct(array $get = [])
-    {
-//        $this->view = new View();
-//        $this->session = new Session();
-//        $this->user = $this->session->get('user');
-//
-    }
+    /** @var $view View */
+    protected $view;
+
+    /** @var $routing Routing */
+    public $routing;
 
     public function setParams(string $type = 'get', array $params)
     {
@@ -34,23 +32,22 @@ abstract class AbstractController implements ControllerInterface
                 break;
         }
     }
-//
-//
-//    public function __set($key, $value)
+
+    public function setRouting(Routing $routing)
+    {
+        $this->routing = new Routing();
+    }
+
+    protected function redirect(string $routeName)
+    {
+        $this->routing->redirect($routeName);
+    }
+
+
+//    protected function redirect(string $controller = 'index', string $action = 'index')
 //    {
-//        $this->values[$key] = $value;
-//    }
-//
-//
-//    public function __get($key)
-//    {
-//        if (array_key_exists($key, $this->values)) {
-//            return $this->values[$key];
-//        }
-//    }
-//
-//    public function redirect($controller, $action = null)
-//    {
+//        $controller = ucfirst($controller);
+//        $action .= 'Action';
 //        if ($controller == 'index' && $action = 'index') {
 //            header('Location: /');
 //        } else {
