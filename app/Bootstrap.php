@@ -42,11 +42,18 @@ class Bootstrap
 
         $controller = 'Src\\Controllers\\' . $controllerName;
 
+        if (!class_exists($controller)) {
+            $this->routing->redirect('no-page');
+        }
+
         $this->controller = new $controller();
+
+        if (!method_exists($this->controller, $action)) {
+            $this->routing->redirect('no-page');
+        }
 
         $this->request->setControllerParams($this->controller);
         call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
-
         call_user_func_array([$this->controller, $action], []);
 
     }

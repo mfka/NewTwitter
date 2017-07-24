@@ -1,11 +1,14 @@
 <?php
 
-class UserController extends Controller
+namespace Src\Controllers;
+
+use Src\Abstracts\AbstractController;
+
+class User extends AbstractController
 {
 
     public function isLogged()
     {
-
         if (!$this->user) {
             $this->redirect('index', 'index');
         }
@@ -83,9 +86,10 @@ class UserController extends Controller
         $this->redirect('index', 'index');
     }
 
-    public function editAccountAction()
+    public function editAction()
     {
-
+        var_dump('jest');
+        exit;
     }
 
     public function deleteAccountAction()

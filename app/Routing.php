@@ -13,29 +13,23 @@ class Routing
     }
 
 
-    public function getRouteByUrl($url)
-    {
-        return $this->getRoute('url', $url);
-    }
-
     private function setRoutes(): array
     {
         return $this->routes = [
             [
-                'url' => '',
-                'params' => '',
+                'url' => '/index',
                 'name' => 'home',
                 'controller' => 'index',
                 'action' => 'index'
             ],
             [
-                'url' => '/user/edit',
-                'params' => '',
-                'name' => 'user-edit'
+                'url' => '/user/edit/(\d+)',
+                'name' => 'user-edit',
+                'controller' => 'user',
+                'action' => 'edit',
             ],
             [
                 'url' => '/404',
-                'params' => '',
                 'name' => 'no-page',
                 'controller' => 'noPage',
                 'action' => 'index'
@@ -64,6 +58,22 @@ class Routing
         if ($key >= 0) {
             return $this->routes[$key];
         }
+        return false;
+    }
+
+    public function getRouteByUrl(string $uri)
+    {
+        $paths = array_column($this->routes, 'url');
+        foreach ($paths as $index => $path) {
+            preg_match_all('#^' . $path . '$#', $uri, $matches, PREG_OFFSET_CAPTURE);
+            if (!empty($matches[0])) {
+                var_dump($matches);
+                exit;
+                return $this->routes[$index];
+            }
+            var_dump($matches);
+        }
+        exit;
         return false;
     }
 
