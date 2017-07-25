@@ -17,7 +17,7 @@ class Routing
     {
         return $this->routes = [
             [
-                'url' => '/index',
+                'url' => '',
                 'name' => 'home',
                 'controller' => 'index',
                 'action' => 'index'
@@ -67,13 +67,9 @@ class Routing
         foreach ($paths as $index => $path) {
             preg_match_all('#^' . $path . '$#', $uri, $matches, PREG_OFFSET_CAPTURE);
             if (!empty($matches[0])) {
-                var_dump($matches);
-                exit;
                 return $this->routes[$index];
             }
-            var_dump($matches);
         }
-        exit;
         return false;
     }
 

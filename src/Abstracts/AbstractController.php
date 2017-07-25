@@ -2,6 +2,7 @@
 
 namespace Src\Abstracts;
 
+use App\Request;
 use App\Routing;
 use App\View;
 use Src\Interfaces\ControllerInterface;
@@ -21,6 +22,9 @@ abstract class AbstractController implements ControllerInterface
     /** @var $routing Routing */
     public $routing;
 
+    /** @var $request Request */
+    public $request;
+
     public function setParams(string $type = 'get', array $params)
     {
         switch ($type) {
@@ -35,7 +39,17 @@ abstract class AbstractController implements ControllerInterface
 
     public function setRouting(Routing $routing)
     {
-        $this->routing = new Routing();
+        $this->routing = $routing;
+    }
+
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function init()
+    {
+        $this->view = new View();
     }
 
     protected function redirect(string $routeName)
@@ -43,111 +57,36 @@ abstract class AbstractController implements ControllerInterface
         $this->routing->redirect($routeName);
     }
 
+    protected function get(string $paramName = null)
+    {
+        return $this->request->getParam($paramName);
+    }
 
-//    protected function redirect(string $controller = 'index', string $action = 'index')
-//    {
-//        $controller = ucfirst($controller);
-//        $action .= 'Action';
-//        if ($controller == 'index' && $action = 'index') {
-//            header('Location: /');
-//        } else {
-//            header('Location: /' . $controller . '/' . $action, 301);
-//        }
-//        exit;
-//    }
-//
-//
-//    public function isGet()
-//    {
-//        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public function isPost()
-//    {
-//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public function getValue($name = FALSE)
-//    {
-//        switch ($name) {
-//            case isset($_POST[$name]):
-//                $value = $_POST[$name];
-//                return $value;
-//                break;
-//            default:
-//                return False;
-//                break;
-//        }
-//    }
-//
-//    public function getValues()
-//    {
-//        if (isset($_POST)) {
-//            return $_POST;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public function getParams()
-//    {
-//        if (isset($_GET)) {
-//            return $_GET;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public function getParam($name = FALSE)
-//    {
-//        switch ($name) {
-//            case isset($_GET[$name]):
-//                $value = $_GET[$name];
-//                return $value;
-//                break;
-//            default:
-//                return FALSE;
-//                break;
-//        }
-//    }
-//
-//    public function getRequest()
-//    {
-//        if (isset($_GET)) {
-//            $arrRequest = explode('/', $_GET['request']);
-//            $arrKey = array('controller', 'action');
-//            $arrRequest = array_combine($arrKey, $arrRequest);
-//            return $arrRequest;
-//        } else {
-//            return FALSE;
-//        }
-//    }
-//
-//    public function getController()
-//    {
-//        $arrRequest = $this->getRequest();
-//        if (isset ($arrRequest['controller'])) {
-//            return $arrRequest['controller'];
-//        } else {
-//            return FALSE;
-//        }
-//    }
-//
-//    public function getAction()
-//    {
-//        $arrRequest = $this->getRequest();
-//        if (isset ($arrRequest['action'])) {
-//            return $arrRequest['action'];
-//        } else {
-//            return FALSE;
-//        }
-//    }
+    protected function post(string $paramName = null)
+    {
+        return $this->request->getParam($paramName, 'post');
+    }
+
+    protected function isPost()
+    {
+        return $this->request->checkMethod('POST');
+    }
+
+    protected function isGet()
+    {
+        return $this->request->checkMethod('GET');
+    }
+
+    protected function render(string $templateName = 'index', array $data = [], string $folder = null)
+    {
+        if (is_null($folder)) {
+            $subDir = strtolower(str_replace('Src\\Controllers\\', '', get_called_class()));
+        } else {
+            $subDir = $folder;
+        }
+        $template = $this->view->render($subDir, $templateName, $data);
+        if ($template) {
+            echo $template;
+        }
+    }
 }

@@ -2,62 +2,32 @@
 
 namespace App;
 
+use App\Helper as Helper;
+
 class View
 {
-    public $data = array();
+    const DIR = __DIR__ . '/../src/Views';
 
     public function __construct()
     {
-        require_once __DIR__ . '/../../views/common/header.php';
-        require_once __DIR__ . '/../../views/common/navi.php';
+        $this->helper = new Helper();
     }
 
-    public function render($viewName = 'index/index')
+    public function render($subDir = 'index', string $viewName = 'index', array $data = [])
     {
-        $file = __DIR__ . '/../../views/' . $viewName . '.php';
-
-        if (file_exists($file)) {
-            require_once($file);
-        } else {
-            echo "Error: View does not exists";
-        }
-    }
-
-
-    public function __set($key, $value)
-    {
-        $this->data[$key] = $value;
-        return true;
-    }
-
-    public function __get($key)
-    {
-        if (array_key_exists($key, $this->data)) {
-            return $this->data[$key];
-        } else {
+        $file = self::DIR . '/' . $subDir . '/' . $viewName . '.php';
+        if (!file_exists($file)) {
             return false;
         }
+        (empty($data) ?: extract($data));
+        ob_start();
+        include(self::DIR . '/common/header.php');
+        include(self::DIR . '/common/navi.php');
+        include($file);
+        include(self::DIR . '/common/footer.php');
+        $template = ob_get_contents();
+        ob_end_clean();
+        return $template;
     }
 
-    public function __destruct()
-    {
-        require_once __DIR__ . '/../../views/common/footer.php';
-    }
-
-    public function __call($method, $args)
-    {
-        switch ($method) {
-            case 'helper':
-                $file = __DIR__ . '/../../views/helper/' . $args;
-                if (file_exists($file)) {
-                    require_once $file;
-                } else {
-                    return false;
-                }
-                break;
-            default:
-                return false;
-                break;
-        }
-    }
 }

@@ -9,8 +9,7 @@ class Index extends AbstractController
 
     public function indexAction()
     {
-//        $this->redirect('no-page');
-        echo 'indexController';
+        $this->render('index', ['user' => 'Marek']);
     }
 
 }

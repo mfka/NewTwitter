@@ -5,7 +5,7 @@ namespace App;
 use App\Routing as Routing;
 
 use Src\Abstracts\AbstractController;
-use App\Request;
+use App\Request as Request;
 
 class Bootstrap
 {
@@ -52,8 +52,10 @@ class Bootstrap
             $this->routing->redirect('no-page');
         }
 
-        $this->request->setControllerParams($this->controller);
+        $this->request->setParams();
         call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
+        call_user_func_array([$this->controller, 'setRequest'], [$this->request]);
+        call_user_func_array([$this->controller, 'init'], []);
         call_user_func_array([$this->controller, $action], []);
 
     }
@@ -65,7 +67,7 @@ class Bootstrap
 
     private function setRequest()
     {
-        $this->request = new \App\Request();
+        $this->request = new Request();
     }
 
     private function setUrl()
