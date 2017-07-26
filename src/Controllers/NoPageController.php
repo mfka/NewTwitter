@@ -10,7 +10,7 @@ namespace Src\Controllers;
 
 use Src\Abstracts\AbstractController;
 
-class NoPage extends AbstractController
+class NoPageController extends AbstractController
 {
     public function indexAction()
     {

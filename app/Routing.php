@@ -33,6 +33,13 @@ class Routing
                 'name' => 'no-page',
                 'controller' => 'noPage',
                 'action' => 'index'
+            ],
+            [
+                'url' => '/user/login',
+                'name' => 'user-login',
+                'controller' => 'user',
+                'action' => 'login',
+
             ]
         ];
     }

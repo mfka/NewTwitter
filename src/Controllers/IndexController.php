@@ -4,12 +4,12 @@ namespace Src\Controllers;
 
 use Src\Abstracts\AbstractController;
 
-class Index extends AbstractController
+class IndexController extends AbstractController
 {
 
     public function indexAction()
     {
-        $this->render('index', ['user' => 'Marek']);
+
     }
 
 }

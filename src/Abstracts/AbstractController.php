@@ -10,20 +10,16 @@ use Src\Interfaces\ControllerInterface;
 abstract class AbstractController implements ControllerInterface
 {
 
-    /** @var $get array */
-    protected $get;
-
-    /** @var $post array */
-    protected $post;
-
-    /** @var $view View */
-    protected $view;
-
     /** @var $routing Routing */
     public $routing;
-
     /** @var $request Request */
     public $request;
+    /** @var $get array */
+    protected $get;
+    /** @var $post array */
+    protected $post;
+    /** @var $view View */
+    protected $view;
 
     public function setParams(string $type = 'get', array $params)
     {
@@ -81,6 +77,7 @@ abstract class AbstractController implements ControllerInterface
     {
         if (is_null($folder)) {
             $subDir = strtolower(str_replace('Src\\Controllers\\', '', get_called_class()));
+            $subDir = str_replace('controller', '', $subDir);
         } else {
             $subDir = $folder;
         }

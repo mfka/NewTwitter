@@ -40,14 +40,12 @@ class Bootstrap
         $action = ($this->route['action'] ?: 'index') . 'Action';
         $controllerName = ucfirst($this->route['controller']) ?: 'NoPage';
 
-        $controller = 'Src\\Controllers\\' . $controllerName;
-
+        $controller = 'Src\\Controllers\\' . $controllerName . 'Controller';
         if (!class_exists($controller)) {
             $this->routing->redirect('no-page');
         }
 
         $this->controller = new $controller();
-
         if (!method_exists($this->controller, $action)) {
             $this->routing->redirect('no-page');
         }

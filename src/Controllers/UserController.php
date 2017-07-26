@@ -4,7 +4,7 @@ namespace Src\Controllers;
 
 use Src\Abstracts\AbstractController;
 
-class User extends AbstractController
+class UserController extends AbstractController
 {
 
     public function isLogged()

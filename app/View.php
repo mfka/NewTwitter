@@ -30,4 +30,17 @@ class View
         return $template;
     }
 
+    protected function inc(string $templateName, string $folder)
+    {
+        $file = self::DIR . '/' . $folder . '/' . $templateName . '.php';
+        if (!file_exists($file)) {
+            return false;
+        }
+        ob_start();
+        include($file);
+        $template = ob_get_contents();
+        ob_end_clean();
+        echo $template;
+    }
+
 }
