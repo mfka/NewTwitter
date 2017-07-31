@@ -21,6 +21,8 @@ class Bootstrap
     /** @var  $url string */
     private $url;
 
+    /** @var $model Model */
+    private $model;
 
     /** @var  $controller AbstractController */
     private $controller;
@@ -31,7 +33,9 @@ class Bootstrap
         $this->setRequest();
         $this->setUrl();
         $this->setRoute();
+        $this->dbConn();
         $this->initController();
+        $this->dbConn(false);
     }
 
 
@@ -77,6 +81,17 @@ class Bootstrap
     private function setRoute()
     {
         return $this->route = $this->routing->getRouteByUrl($this->url);
+    }
+
+    private function dbConn(bool $open = true)
+    {
+        $this->model instanceof Model ?: $this->model = new Model();
+
+        if ($open) {
+            return $this->model->setConnection();
+        } else {
+            return $this->model->closeConnection();
+        }
     }
 }
 

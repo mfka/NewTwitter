@@ -30,7 +30,7 @@ class View
         return $template;
     }
 
-    protected function inc(string $templateName, string $folder)
+    protected function inc(string $folder, string $templateName)
     {
         $file = self::DIR . '/' . $folder . '/' . $templateName . '.php';
         if (!file_exists($file)) {

@@ -1,14 +1,10 @@
 <div class="container">
 
-    <?php if ($this->message): ?>
-        <p class="alert alert-warning"><?php echo $this->message; ?></p>
-    <?php endif; ?>
+    <?php var_dump($this); ?>
 
-    <?php $this->render('forms/twitt'); ?>
+    <?php if ($this->twits): ?>
 
-    <?php if ($this->arrTwitts): ?>
-
-        <?php foreach ($this->arrTwitts as $twitt): ?>
+        <?php foreach ($this->twits as $twitt): ?>
             <div class="container">
                 <div class="row top-buffer">
                     <ul class="list-group">
@@ -33,9 +29,9 @@
 
     <?php else: ?>
 
-        <div class="row">
-            <p class="alert alert-danger">Sorry :( There is no Twitts! Be first and write something!</p>
-        </div>
+        <!--        <div class="row">-->
+        <!--            <p class="alert alert-danger">Sorry :( There is no Twitts! Be first and write something!</p>-->
+        <!--        </div>-->
 
     <?php endif; ?>
 
