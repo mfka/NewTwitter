@@ -30,9 +30,9 @@ class View
         return $template;
     }
 
-    protected function inc(string $folder, string $templateName)
+    protected function inc(string $view)
     {
-        $file = self::DIR . '/' . $folder . '/' . $templateName . '.php';
+        $file = self::DIR . '/' . $view . '.php';
         if (!file_exists($file)) {
             return false;
         }
@@ -41,6 +41,7 @@ class View
         $template = ob_get_contents();
         ob_end_clean();
         echo $template;
+        return;
     }
 
 }

@@ -1,10 +1,10 @@
 <div class="container text-center">
     <div class="row">
-        <?php var_dump($twits); ?>
-
-        <?php $this->inc('login', 'forms'); ?>
-        <?php $this->inc('register', 'forms'); ?>
-        <?php $this->inc('index', 'twitt'); ?>
+        <?php $this->inc('forms/login'); ?>
+        <?php $this->inc('forms/register'); ?>
+    </div>
+    <div class="row">
+        <?php $this->inc('twitt/index'); ?>
     </div>
 </div>
 
