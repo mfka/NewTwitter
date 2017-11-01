@@ -30,11 +30,11 @@ class View
         return $template;
     }
 
-    protected function inc(string $view)
+    public function inc(string $templateName = 'index/index'): void
     {
-        $file = self::DIR . '/' . $view . '.php';
+        $file = self::DIR . '/' . $templateName . '.php';
         if (!file_exists($file)) {
-            return false;
+            return;
         }
         ob_start();
         include($file);

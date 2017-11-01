@@ -1,5 +1,7 @@
 <?php
 
+use App\Database;
+
 require_once(__DIR__ . '/../config/autoLoader.php');
 
 class User extends Model

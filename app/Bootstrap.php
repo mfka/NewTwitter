@@ -55,6 +55,7 @@ class Bootstrap
         }
 
         $this->request->setParams();
+
         call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
         call_user_func_array([$this->controller, 'setRequest'], [$this->request]);
         call_user_func_array([$this->controller, 'init'], []);
