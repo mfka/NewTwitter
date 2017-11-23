@@ -3,16 +3,10 @@
 namespace Src\Controllers;
 
 use Src\Abstracts\AbstractController;
+use User;
 
 class UserController extends AbstractController
 {
-
-    public function isLogged()
-    {
-        if (!$this->user) {
-            $this->redirect('index', 'index');
-        }
-    }
 
     public function indexAction()
     {
@@ -20,6 +14,13 @@ class UserController extends AbstractController
 
         $this->view->user = $this->user;
         $this->view->render('user/index');
+    }
+
+    public function isLogged()
+    {
+        if (!$this->user) {
+            $this->redirect('index', 'index');
+        }
     }
 
     public function registerAction()
@@ -37,33 +38,29 @@ class UserController extends AbstractController
             $this->session->set('logged', 1);
             $this->session->set('user', $user);
             $this->view->user = $user;
-            $this->view->render('/user/index');
-
-        } else {
-            $this->redirect('index', 'index');
         }
+        $this->redirect('index', 'index');
     }
 
     public function loginAction()
     {
-
         if ($this->isPost()) {
-            if ($this->getValue('pass') && $this->getValue('email')) {
-                $email = trim($this->getValue('email'));
-                $pass = trim($this->getValue('pass'));
-            }
-
-            $user = User::login($email, $pass);
-
-            if ($user) {
-                $this->session->set('logged', 1);
-                $this->session->set('user', $user);
-                $this->redirect('twitt', 'index');
+            $email = trim($this->request->request('email'));
+            $pass = trim($this->request->request('pass'));
+            if (!is_null($email) && !is_null($pass)) {
+                $user = User::login($email, $pass);
+                exit(var_dump($email, $pass, $user));
+                if ($user instanceof User) {
+                    $this->session->set('logged', 1);
+                    $this->session->set('user', $user);
+                    $this->redirect('twitt', 'index');
+                }
             }
             $this->view->message = "Your password or/and Email is invalid - try again";
             $this->view->render('index/index');
-
         }
+        $this->view->message = "Method is not allowed";
+        $this->view->render('index/index');
     }
 
     public function twittsAction()

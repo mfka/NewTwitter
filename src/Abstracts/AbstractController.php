@@ -53,16 +53,6 @@ abstract class AbstractController implements ControllerInterface
         $this->routing->redirect($routeName);
     }
 
-    protected function get(string $paramName = null)
-    {
-        return $this->request->getParam($paramName);
-    }
-
-    protected function post(string $paramName = null)
-    {
-        return $this->request->getParam($paramName, 'post');
-    }
-
     protected function isPost()
     {
         return $this->request->checkMethod('POST');

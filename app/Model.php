@@ -5,11 +5,16 @@ namespace App;
 class Model
 {
     protected static $conn;
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
     public function setConnection()
     {
-        $db = new Database();
-        self::$conn = $db->connect();
+        self::$conn = $this->db->connect();
     }
 
     public function closeConnection()
