@@ -23,7 +23,7 @@ class Request
         return $_SERVER['REQUEST_METHOD'] === strtoupper($type);
     }
 
-    public function query(string $paramName = ''): ?string
+    public function query(string $paramName = ''): string
     {
         return $this->getParam($paramName);
     }
@@ -45,7 +45,7 @@ class Request
         return false;
     }
 
-    public function request(string $paramName = ''): ?string
+    public function request(string $paramName = ''): string
     {
         return $this->getParam($paramName, 'POST');
     }
