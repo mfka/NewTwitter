@@ -7,7 +7,7 @@ use Src\Model\Twitt;
 
 class IndexController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction(): void
     {
         $twits = Twitt::getAll();
         $this->render('index', ['twits' => $twits]);

@@ -52,6 +52,7 @@ class Routing
     {
         $route = $this->getRoute('name', $routeName);
         header('Location: ' . $route['url'], 301);
+        return;
     }
 
     /**

@@ -4,7 +4,7 @@
     </div>
     <hr>
     <div class="col-lg-6 col-lg-offset-3">
-        <form method="post" action="/index/register/" name="signup">
+        <form method="post" action="/register" name="signup">
             <div class="form-group">
                 <label for="email">Email address:</label>
                 <input type="email" class="form-control" id="email" name="email">

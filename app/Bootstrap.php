@@ -42,18 +42,13 @@ class Bootstrap
     private function initController()
     {
         $action = ($this->route['action'] ?: 'index') . 'Action';
-        $controllerName = ucfirst($this->route['controller']) ?: 'NoPage';
+        $controllerName = ucfirst($this->route['controller']) ?: 'Index';
 
         $controller = 'Src\\Controllers\\' . $controllerName . 'Controller';
-        if (!class_exists($controller)) {
-            $this->routing->redirect('no-page');
-        }
-
         $this->controller = new $controller();
-        if (!method_exists($this->controller, $action)) {
+        if (!class_exists($controller) || !method_exists($this->controller, $action)) {
             $this->routing->redirect('no-page');
         }
-
         $this->request->setParams();
 
         call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
