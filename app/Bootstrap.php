@@ -50,12 +50,10 @@ class Bootstrap
             $this->routing->redirect('no-page');
         }
         $this->request->setParams();
-
         call_user_func_array([$this->controller, 'setRouting'], [$this->routing]);
         call_user_func_array([$this->controller, 'setRequest'], [$this->request]);
-        call_user_func_array([$this->controller, 'init'], []);
-        call_user_func_array([$this->controller, $action], []);
-
+        call_user_func([$this->controller, 'init']);
+        call_user_func([$this->controller, $action]);
     }
 
     private function setRouting()

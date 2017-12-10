@@ -10,15 +10,17 @@ class Model
     public function __construct()
     {
         $this->db = new Database();
+        self::$conn = $this->setConnection();
     }
 
     public function setConnection()
     {
-        self::$conn = $this->db->connect();
+        return $this->db->connect();
     }
 
     public function closeConnection()
     {
-        return self::$conn = null;
+        unset($this->db);
+        return;
     }
 }

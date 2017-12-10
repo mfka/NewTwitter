@@ -13,4 +13,3 @@ class IndexController extends AbstractController
         $this->render('index', ['twits' => $twits]);
     }
 }
-

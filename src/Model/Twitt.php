@@ -7,10 +7,8 @@ use App\Model;
 class Twitt extends Model
 {
 
-
     static public function getAll()
     {
-        self::$conn;
         $stmt = self::$conn->prepare('SELECT t.*, u.* FROM twitt t INNER JOIN user u ON t.user_id = u.id ORDER BY t.publish DESC');
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -9,7 +9,6 @@ use Src\Interfaces\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
-
     /** @var $routing Routing */
     public $routing;
     /** @var $request Request */
@@ -63,15 +62,12 @@ abstract class AbstractController implements ControllerInterface
         return $this->request->checkMethod('GET');
     }
 
-    protected function render(string $templateName = 'index', array $data = [], string $folder = null)
+    protected function render(string $templateName = 'index', array $data = [], string $folder = null): void
     {
-        if (is_null($folder)) {
-            $subDir = strtolower(str_replace('Src\\Controllers\\', '', get_called_class()));
-            $subDir = str_replace('controller', '', $subDir);
-        } else {
-            $subDir = $folder;
+        if (!isset($folder)) {
+            $folder = preg_replace('Action','',debug_backtrace()[1]['function']);
         }
-        $template = $this->view->render($subDir, $templateName, $data);
+        $template = $this->view->render($folder, $templateName, $data);
         if ($template) {
             echo $template;
         }
