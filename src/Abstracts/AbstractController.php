@@ -62,12 +62,9 @@ abstract class AbstractController implements ControllerInterface
         return $this->request->checkMethod('GET');
     }
 
-    protected function render(string $templateName = 'index', array $data = [], string $folder = null): void
+    protected function render(string $template = 'index', array $data = []): void
     {
-        if (!isset($folder)) {
-            $folder = preg_replace('Action','',debug_backtrace()[1]['function']);
-        }
-        $template = $this->view->render($folder, $templateName, $data);
+        $template = $this->view->render($template, $data);
         if ($template) {
             echo $template;
         }

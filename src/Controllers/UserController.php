@@ -3,7 +3,7 @@
 namespace Src\Controllers;
 
 use Src\Abstracts\AbstractController;
-use User;
+use Model\User;
 
 class UserController extends AbstractController
 {
@@ -39,7 +39,7 @@ class UserController extends AbstractController
             $this->session->set('user', $user);
             $this->view->user = $user;
         }
-        $this->redirect('index', 'index');
+        $this->redirect('home');
     }
 
     public function loginAction()
@@ -49,7 +49,6 @@ class UserController extends AbstractController
             $pass = trim($this->request->request('pass'));
             if (!is_null($email) && !is_null($pass)) {
                 $user = User::login($email, $pass);
-                exit(var_dump($email, $pass, $user));
                 if ($user instanceof User) {
                     $this->session->set('logged', 1);
                     $this->session->set('user', $user);

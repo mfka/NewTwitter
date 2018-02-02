@@ -10,6 +10,6 @@ class IndexController extends AbstractController
     public function indexAction(): void
     {
         $twits = Twitt::getAll();
-        $this->render('index', ['twits' => $twits]);
+        $this->render('index/index.php', ['twits' => $twits]);
     }
 }

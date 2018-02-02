@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 use App\Model;
 
 class User extends Model
@@ -39,7 +41,6 @@ class User extends Model
 
     static public function login($email, $password)
     {
-        exit('dupa');
         $stmt = self::$conn->prepare('SELECT * FROM user WHERE email = :email AND password = :password LIMIT 1');
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', self::encryptPassword($password));
